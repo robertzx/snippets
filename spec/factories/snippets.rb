@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :snippet do
+    text "some sample text"
+    secret false
   end
 end

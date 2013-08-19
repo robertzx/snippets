@@ -1,10 +1,14 @@
 class SnippetsController < ApplicationController
 
   def index
-    @snippets = Snippet.all
+    @snippets = Snippet.limit(20)
   end
 
   def new
+
+  end
+
+  def show
 
   end
 

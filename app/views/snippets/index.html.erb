@@ -5,7 +5,7 @@
 <table>
   <% @snippets.each do |snippet| %>
     <tr>
-      <td><%= snippet.text %></td>
+      <td><%= link_to snippet.excerpt, snippet_path(snippet) %></td>
     </tr>
   <% end %>
 </table>

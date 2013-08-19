@@ -1,0 +1,12 @@
+<%= pluralize(Snippet.count, "snippet") %> in the database
+
+<%= link_to "Add Snippet", new_snippet_path %>
+
+<table>
+  <% @snippets.each do |snippet| %>
+    <tr>
+      <td><%= snippet.text %></td>
+    </tr>
+  <% end %>
+</table>
+

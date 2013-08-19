@@ -32,6 +32,10 @@ describe "Snippets Features" do
       end
     end
 
+    it "shows a count of all the snippets in the database" do
+      page.should have_content "3 snippets in the database"
+    end
+
     context "when more than 20 snippets exist" do
       before(:each) do
         Snippet.destroy_all

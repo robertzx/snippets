@@ -1,6 +1,8 @@
 class Snippet < ActiveRecord::Base
   attr_accessible :secret, :text
 
+  validates :text, length: { maximum: 8192 }
+
   def excerpt
     excerpt_words.join(" ")
   end

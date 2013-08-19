@@ -1,0 +1,10 @@
+<%= @snippet.excerpt %>
+<%= @snippet.text %>
+
+<p>Share this:</p>
+
+<% if @snippet.public? %>
+  <%= snippet_url(@snippet) %>
+<% elsif @snippet.private? %>
+  <%= private_snippet_url(@snippet.token) %>
+<% end %>

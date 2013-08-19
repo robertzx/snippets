@@ -5,7 +5,7 @@ describe "Snippets Features" do
   describe "viewing the index page" do
     let(:snippet1) { FactoryGirl.create(:snippet, :text => "the quick brown fox jumps over the fat lazy dog laying out in the big front yard") }
     let(:snippet2) { FactoryGirl.create(:snippet, :text => "my snippet 2") }
-    let(:snippet3) { FactoryGirl.create(:snippet, :text => "my snippet 3") }
+    let(:snippet3) { FactoryGirl.create(:snippet, :text => "my snippet 3", :secret => true) }
     let!(:snippets) { [snippet1, snippet2, snippet3] }
 
     before(:each) do
@@ -27,9 +27,9 @@ describe "Snippets Features" do
     end
 
     it "shows a list of all snippets" do
-      snippets.each do |snippet|
-        page.should have_content snippet.excerpt
-      end
+      page.should have_content snippet1.excerpt
+      page.should have_content snippet2.excerpt
+      page.should_not have_content snippet3.excerpt
     end
 
     it "shows a count of all the snippets in the database" do
@@ -58,5 +58,39 @@ describe "Snippets Features" do
       end
     end
 
+    describe "viewing a private snippet by ID" do
+      let(:private_snippet) { FactoryGirl.create(:snippet, :text => "my private snippet", :secret => true) }
+
+      before(:each) do
+        visit snippet_path(private_snippet)
+      end
+
+      it "does not allow viewing of private snippets by ID" do
+        page.current_path.should == snippets_path
+      end
+
+      it "displays an error message to the user" do
+        page.should have_content "You need the exact URL in order to access a private snippet"
+      end
+
+    end
+
+    describe "viewing a private snippet by it's token" do
+      let(:private_snippet) { FactoryGirl.create(:snippet, :text => "my private snippet", :secret => true) }
+
+      before(:each) do
+        visit private_snippet_path(private_snippet.token)
+      end
+
+      it "shows the correct snippet" do
+        page.should have_content private_snippet.excerpt
+        page.should have_content private_snippet.text
+      end
+
+      it "shows the url to share the snippet" do
+        page.should have_content private_snippet_url(private_snippet.token)
+      end
+
+    end
   end
 end

@@ -1,5 +1,9 @@
 Snippets::Application.routes.draw do
+
   resources :snippets
+
+  get '/:token' => 'snippets#show', :as => :private_snippet
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

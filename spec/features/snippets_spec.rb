@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Snippets Features" do
-  
+
   describe "viewing the index page" do
     let(:snippet1) { FactoryGirl.create(:snippet, :text => "the quick brown fox jumps over the fat lazy dog laying out in the big front yard") }
     let(:snippet2) { FactoryGirl.create(:snippet, :text => "my snippet 2") }

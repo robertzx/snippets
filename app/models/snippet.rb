@@ -3,7 +3,7 @@ class Snippet < ActiveRecord::Base
 
   validates :text, length: { maximum: 8192 }
 
-  scope :public, -> { where(:secret => false) }
+  scope :public, -> { where('secret IS FALSE') }
 
   after_create :set_token, :if => "private?"
 

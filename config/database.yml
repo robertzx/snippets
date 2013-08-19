@@ -1,0 +1,18 @@
+development: &defaults
+  adapter: postgresql
+  database: snippets_dev
+  encoding: unicode
+  username: kentonnewby
+  password: ""
+
+test: &test
+  <<: *defaults
+  database: snippets_test
+
+production:
+  <<: *defaults
+  databse_name: snippets_production
+
+
+cucumber:
+  <<: *test
